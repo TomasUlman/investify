@@ -122,18 +122,21 @@ export async function fetchMarketData(urlParam) {
                 options
             );
         if (!response.ok) {
+            if (response.status === 429) {
+                throw new Error('Vyčerpaný limit volání API.');
+            }
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const result = await response.json();
         if (result?.message) {
-            console.error("❌ Chyba API odpovědi:", result);
+            console.error("❌ Failed to fetch:", result);
             throw new Error('Chyba načtení dat z API');
         }
 
         return result;
     } catch (err) {
-        console.error('❌ Failed to fetch market data:', err.message);
-        throw new Error("Chyba při načítání tržních dat.");
+        console.error('❌ Failed to fetch:', err.message);
+        throw new Error(err.message);
     }
 }
