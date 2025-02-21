@@ -117,6 +117,8 @@ export function BarChartComponent({ data }) {
                         tickLine={false}
                         tick={{ dx: -5, fontSize: 14, fill: '#cbcaca' }}
                         tickFormatter={(tick) => `${tick} %`}
+                        domain={[0, Math.max(...sortedData.map(d => d.value), 12)]} // Dynamic domain max value
+                        scale="linear"
                     />
                     <Tooltip
                         contentStyle={{
