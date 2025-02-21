@@ -1,2 +1,2 @@
-# investify-private
+# investify
 Investment portfolio tracking app
