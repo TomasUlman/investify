@@ -195,7 +195,7 @@ body {
 
 /* Úprava dráhy scrollbaru (track) */
 .table-container::-webkit-scrollbar-track {
-    background: #6c757d;
+    background: #dcdfe2;
     border-radius: 10px;
 }
 
