@@ -12,6 +12,7 @@ export default function FormEdit({ ticker, onEdit }) {
     const [shares, setShares] = useState('');
     const [investment, setInvestment] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [sharesError, setSharesError] = useState(null);
     const [investmentError, setinvestmentError] = useState(null);
 
@@ -19,6 +20,7 @@ export default function FormEdit({ ticker, onEdit }) {
      * Resets all error messages.
      */
     function resetErrors() {
+        setError(null);
         setSharesError(null);
         setinvestmentError(null);
     }
@@ -72,49 +74,55 @@ export default function FormEdit({ ticker, onEdit }) {
                 onEdit(newItem);
             }
         } catch (err) {
-            console.error('Chyba při úpravě investice: ', err.message)
+            console.error('❌ Failed to fetch:', err.message)
+            setError(err.message);
         } finally {
             setIsLoading(false);
         }
     }
 
     return (
-        <form className='form-edit' onSubmit={handleSubmit}>
-            <div className='form-edit-badge'>✏ {ticker}</div>
-            <div className='input-group'>
-                <span>Počet</span>
-                <input
-                    type='number'
-                    value={shares}
-                    onChange={e => {
-                        setShares(e.target.value)
-                        resetErrors()
-                    }}
-                    required
-                />
-            </div>
-            <div className='input-group'>
-                <span>Částka ($)</span>
-                <input
-                    type='number'
-                    value={investment}
-                    onChange={e => {
-                        setInvestment(e.target.value)
-                        resetErrors()
-                    }}
-                    required
-                />
-            </div>
-            {isLoading ?
-                <button className='submit-btn-disabled' disabled>
-                    <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    <span className="visually-hidden" role="status">Loading...</span>
-                </button>
-                :
-                <button className='submit-btn'>Uložit</button>
+        <div>
+            {error && <p className="form-error-message" style={{ textAlign: 'center' }}>{error}</p>}
+            {!error &&
+                <form className='form-edit' onSubmit={handleSubmit}>
+                    <div className='form-edit-badge'>✏ {ticker}</div>
+                    <div className='input-group'>
+                        <span>Počet</span>
+                        <input
+                            type='number'
+                            value={shares}
+                            onChange={e => {
+                                setShares(e.target.value)
+                                resetErrors()
+                            }}
+                            required
+                        />
+                    </div>
+                    <div className='input-group'>
+                        <span>Částka ($)</span>
+                        <input
+                            type='number'
+                            value={investment}
+                            onChange={e => {
+                                setInvestment(e.target.value)
+                                resetErrors()
+                            }}
+                            required
+                        />
+                    </div>
+                    {isLoading ?
+                        <button className='submit-btn-disabled' disabled>
+                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span className="visually-hidden" role="status">Loading...</span>
+                        </button>
+                        :
+                        <button className='submit-btn'>Uložit</button>
+                    }
+                    {sharesError && <p className="form-error-message edit-shares-error">{sharesError}</p>}
+                    {investmentError && <p className="form-error-message edit-investment-error">{investmentError}</p>}
+                </form>
             }
-            {sharesError && <p className="form-error-message edit-shares-error">{sharesError}</p>}
-            {investmentError && <p className="form-error-message edit-investment-error">{investmentError}</p>}
-        </form>
+        </div>
     );
 }

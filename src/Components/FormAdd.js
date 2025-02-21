@@ -14,6 +14,7 @@ export default function FormAdd({ portfolio, onAdd }) {
     const [ticker, setTicker] = useState('');
     const [shares, setShares] = useState('');
     const [investment, setInvestment] = useState('');
+    const [error, setError] = useState(null);
     const [tickerError, setTickerError] = useState(null);
     const [sharesError, setSharesError] = useState(null);
     const [investmentError, setinvestmentError] = useState(null);
@@ -24,6 +25,7 @@ export default function FormAdd({ portfolio, onAdd }) {
      * Resets all error messages.
      */
     function resetErrors() {
+        setError(null);
         setTickerError(null);
         setSharesError(null);
         setinvestmentError(null);
@@ -99,71 +101,77 @@ export default function FormAdd({ portfolio, onAdd }) {
 
             onAdd(newItem);
         } catch (err) {
-            console.error("Chyba při přidání investice:", err.message);
+            console.error("❌ Failed to fetch:", err.message);
+            setError(err.message);
         } finally {
             setIsLoading(false);
         }
     }
 
     return (
-        <form className='form-add' onSubmit={handleSubmit}>
-            <div className='input-group'>
-                <span>Ticker</span>
-                <input
-                    type='text'
-                    value={ticker}
-                    onChange={e => {
-                        setTicker(e.target.value.toUpperCase())
-                        resetErrors()
-                    }}
-                    required
-                />
-                <FontAwesomeIcon
-                    icon={faInfo}
-                    size='sm'
-                    color='#fff'
-                    className='form-info'
-                    onMouseEnter={() => setIsTooltipOpen(true)}
-                    onMouseLeave={() => setIsTooltipOpen(false)}
-                />
-                {isTooltipOpen && <Tooltip />}
-            </div>
-            {tickerError && <p className="form-error-message">{tickerError}</p>}
-            <div className='input-group'>
-                <span>Počet</span>
-                <input
-                    type='number'
-                    value={shares}
-                    onChange={e => {
-                        setShares(e.target.value)
-                        resetErrors()
-                    }}
-                    required
-                />
-            </div>
-            {sharesError && <p className="form-error-message">{sharesError}</p>}
-            <div className='input-group'>
-                <span>Částka ($)</span>
-                <input
-                    type='number'
-                    value={investment}
-                    onChange={e => {
-                        setInvestment(e.target.value)
-                        resetErrors()
-                    }}
-                    required
-                />
-            </div>
-            {investmentError && <p className="form-error-message">{investmentError}</p>}
-            {isLoading ?
-                <button className='submit-btn-disabled' disabled>
-                    <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    <span className="visually-hidden" role="status">Loading...</span>
-                </button>
-                :
-                <button className='submit-btn'>Přidat</button>
+        <div>
+            {error && <p className="form-error-message" style={{ textAlign: 'center' }}>{error}</p>}
+            {!error &&
+                <form className='form-add' onSubmit={handleSubmit}>
+                    <div className='input-group'>
+                        <span>Ticker</span>
+                        <input
+                            type='text'
+                            value={ticker}
+                            onChange={e => {
+                                setTicker(e.target.value.toUpperCase())
+                                resetErrors()
+                            }}
+                            required
+                        />
+                        <FontAwesomeIcon
+                            icon={faInfo}
+                            size='sm'
+                            color='#fff'
+                            className='form-info'
+                            onMouseEnter={() => setIsTooltipOpen(true)}
+                            onMouseLeave={() => setIsTooltipOpen(false)}
+                        />
+                        {isTooltipOpen && <Tooltip />}
+                    </div>
+                    {tickerError && <p className="form-error-message">{tickerError}</p>}
+                    <div className='input-group'>
+                        <span>Počet</span>
+                        <input
+                            type='number'
+                            value={shares}
+                            onChange={e => {
+                                setShares(e.target.value)
+                                resetErrors()
+                            }}
+                            required
+                        />
+                    </div>
+                    {sharesError && <p className="form-error-message">{sharesError}</p>}
+                    <div className='input-group'>
+                        <span>Částka ($)</span>
+                        <input
+                            type='number'
+                            value={investment}
+                            onChange={e => {
+                                setInvestment(e.target.value)
+                                resetErrors()
+                            }}
+                            required
+                        />
+                    </div>
+                    {investmentError && <p className="form-error-message">{investmentError}</p>}
+                    {isLoading ?
+                        <button className='submit-btn-disabled' disabled>
+                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span className="visually-hidden" role="status">Loading...</span>
+                        </button>
+                        :
+                        <button className='submit-btn'>Přidat</button>
+                    }
+                </form >
             }
-        </form >
+        </div>
     );
 }
 
