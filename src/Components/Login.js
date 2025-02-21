@@ -25,7 +25,7 @@ export default function Login({ onLogin }) {
             onLogin(user);
             setError("");
         } catch (err) {
-            setError("Wrong email or password");
+            setError("Špatný email nebo heslo");
         }
     };
 
