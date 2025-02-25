@@ -1,0 +1,189 @@
+@media (max-width: 1024px) {
+    body {
+        padding: 0.2rem;
+    }
+
+    /* Summary */
+    .summary-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 0.2rem;
+        font-size: 0.8rem;
+        width: 100vw;
+    }
+
+    .summary-container> :nth-child(6) {
+        grid-row: 1;
+        grid-column: 1 / 2;
+    }
+
+    .summary-container> :nth-child(5) {
+        grid-row: 1;
+        grid-column: 2 / 2;
+    }
+
+    .summary-card {
+        padding: 10px 0 10px 0;
+        justify-content: flex-start;
+    }
+
+    .summary-card-title {
+        transform: scale(0.8);
+        white-space: nowrap;
+    }
+
+    .logo-container {
+        gap: 0.5rem;
+    }
+
+    .logo-container img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .log-out-btn {
+        margin-top: -1rem;
+        margin-left: -8rem;
+        cursor: pointer;
+    }
+
+    /* Line chart */
+    .line-chart-container {
+        margin-top: 0.2rem;
+        font-size: 0.8rem;
+    }
+
+    /* Table and bar charts */
+    .table-charts-container {
+        flex-direction: column-reverse;
+        margin-top: 0.2rem;
+        gap: 0.2rem;
+    }
+
+    /* Table */
+    .table-container {
+        padding: 0px 10px 10px 10px;
+        font-size: 0.6rem;
+        width: 100vw;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    .table-container thead {
+        white-space: nowrap;
+    }
+
+    /* Úprava celého scrollbar tracku pro mobilní zařízení */
+    .table-container::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
+    /* Úprava dráhy scrollbaru (track) */
+    .table-container::-webkit-scrollbar-track {
+        background: #e5e5e5;
+        border-radius: 10px;
+    }
+
+    /* Úprava samotného posuvníku */
+    .table-container::-webkit-scrollbar-thumb {
+        background: #aaa;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    /* Posuvník při hoveru (na dotykových zařízeních moc nefunguje, ale pro jistotu) */
+    .table-container::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+
+    /* Odstranění šipek nahoře a dole */
+    .table-container::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    /* Tabs */
+    .tabs {
+        background-color: var(--element-bg-color);
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        flex: 1;
+    }
+
+    .tabs-btn-container {
+        display: flex;
+        gap: 5px;
+    }
+
+    .tab-btn {
+        padding: 5px;
+        font-size: 0.8rem;
+        min-width: 4rem;
+        border: none;
+    }
+
+    /* Modals */
+    .modal-add {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-edit {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-remove {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        transform: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-info {
+        left: -10%;
+        top: 30%;
+    }
+
+    .form-tooltip {
+        top: -230%;
+    }
+
+    .form-edit {
+        flex-direction: column;
+    }
+
+    .form-edit-badge {
+        position: relative;
+    }
+
+    .edit-shares-error {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .edit-investment-error {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}
